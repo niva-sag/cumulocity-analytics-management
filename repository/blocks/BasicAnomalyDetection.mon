@@ -14,7 +14,7 @@ using com.apama.util.AnyExtractor;
 
 
 /** The parameters for the Anomaly Detection block. */
-event AnomalyDetection_$Parameters{
+event BasicAnomalyDetection_$Parameters{
 
 	/**
 	* Alpha (smoothing factor). 
@@ -40,7 +40,7 @@ event AnomalyDetection_$Parameters{
 }
 
 /** State of the block.*/
-event AnomalyDetection_$State{
+event BasicAnomalyDetection_$State{
 	float lastValue; 
 	float variance; 
 	float mean; 
@@ -68,7 +68,7 @@ event BasicAnomalyDetection {
 	BlockBase $base;
 	
 	/** Parameters, filled in by the framework. */
-	AnomalyDetection_$Parameters $parameters;
+	BasicAnomalyDetection_$Parameters $parameters;
 
 	float alpha;
 	float numStdDevs;
@@ -90,7 +90,7 @@ event BasicAnomalyDetection {
    	*
    	* @$inputName value Value
 	*/
-	action $process(Activation $activation, float $input_value, AnomalyDetection_$State $blockState) {
+	action $process(Activation $activation, float $input_value, BasicAnomalyDetection_$State $blockState) {
 		if (not $blockState.stateInitialized) {
 			$blockState.lastValue := $input_value;
 			$blockState.mean := $input_value;
